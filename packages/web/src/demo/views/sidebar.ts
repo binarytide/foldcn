@@ -70,7 +70,7 @@ export const sidebarView = (model: Model, h: HtmlBuilder<AppMessage>): Html =>
               // so the shell is contained by the transformed preview box.
               className:
                 '!min-h-0 !h-full [&_[data-slot=sidebar]]:!h-full [&_[data-slot=sidebar-container]]:!h-full',
-              content: (slots) => [
+              content: () => [
                 Sidebar.header({}, [teamSwitcher(h)], h),
                 Sidebar.content({}, [navMain(h), navProjects(h), secondarySupportGroup(h)], h),
                 Sidebar.footer({}, [navUser(h)], h),
