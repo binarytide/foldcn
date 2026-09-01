@@ -9,7 +9,7 @@
 // @foldkit/ui primitive lands or the component gains the behavior — delete the
 // entry in the same change that adds the behavior.
 
-export const gapsByItem: Readonly<Record<string, ReadonlyArray<string>>> = {
+export const gapsByItem = {
   command: [
     'Presentational surface only — no filtering, arrow-key navigation, or selection. Compose with listbox or wire your own behavior.',
   ],
@@ -20,7 +20,6 @@ export const gapsByItem: Readonly<Record<string, ReadonlyArray<string>>> = {
     'Opens on activation at a fixed anchor — foldkit has no right-click/pointer-position anchoring primitive yet.',
   ],
   sidebar: [
-    'No cookie persistence — foldkit owns initial render through its own hydration rather than document.cookie (an SSR flash-prevention mechanism).',
     'Collapsed-mode menu-button tooltips are not auto-composed — wrap menu buttons in Tooltip submodels yourself if you need them.',
   ],
   toast: [
@@ -45,4 +44,9 @@ export const gapsByItem: Readonly<Record<string, ReadonlyArray<string>>> = {
   progress: [
     'Indeterminate state renders an empty track — animated indeterminacy awaits primitive support.',
   ],
-}
+} as const
+
+const isGapItem = (name: string): name is keyof typeof gapsByItem => name in gapsByItem
+
+export const gapsForItem = (name: string): ReadonlyArray<string> | undefined =>
+  isGapItem(name) ? gapsByItem[name] : undefined
